@@ -71,6 +71,10 @@ public class GameScreen implements Screen {
             Gdx.app.log("Game", "Enemy attacking");
             enemy.attack(player);
             enemy.setLastAttackMillis(TimeUtils.millis());
+            player.setScale(0.95f);
+        }
+        if(player.getScaleX() != 1 && TimeUtils.timeSinceMillis(enemy.getLastAttackMillis()) > 100) {
+            player.setScale(1);
         }
 
         game.getBatch().setProjectionMatrix(game.getCamera().combined);

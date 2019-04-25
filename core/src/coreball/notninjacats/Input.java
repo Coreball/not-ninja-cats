@@ -43,6 +43,9 @@ public class Input implements InputProcessor {
         else if(game.getScreen() instanceof GameScreen) {
             GameScreen gameScreen = (GameScreen) game.getScreen();
             gameScreen.getPlayer().attack(gameScreen.getEnemy());  // have player attack enemy
+            if(!gameScreen.getEnemy().isDead()) {
+                gameScreen.getEnemy().setScale(0.75f);  // depress if actually got hurt
+            }
         }
 
         else if(game.getScreen() instanceof EndScreen) {
@@ -54,6 +57,11 @@ public class Input implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(game.getScreen() instanceof GameScreen) {
+            GameScreen gameScreen = (GameScreen) game.getScreen();
+            gameScreen.getEnemy().setScale(0.8f);  // undepress when release mouse
+        }
+
         return false;
     }
 
