@@ -13,15 +13,17 @@ public class Player extends Character {
     }
 
     public void attack(Character victim) {
-        victim.hurt((int)(getDamage() * (Math.random() + 0.5)));
+        int damage = (int)(getDamage() * (Math.random() + 0.5));
+        Gdx.app.log("Game", "Player attack for: " + damage);
+        victim.hurt(damage);
     }
 
     public int getExp() {
         return exp;
     }
 
-    public void setExp(int exp) {
-        this.exp = exp;
+    public void addExp(int exp) {
+        this.exp += exp;
     }
 
 }

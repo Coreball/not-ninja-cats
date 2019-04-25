@@ -46,18 +46,31 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getCamera().update();
 
+        // Check for death
         if(enemy.getHealth() <= 0 && !enemy.isDead()) {
+            Gdx.app.log("Game", "Enemy died");
             enemy.die();
+            player.addExp(10);
             lastEnemyDeathMillis = TimeUtils.millis();
         }
         if(player.getHealth() <= 0) {
+            Gdx.app.log("Game", "Player died");
             game.setScreen(new EndScreen());  // the end!
         }
+
+        // Check respawn
         if(enemy.isDead() && TimeUtils.timeSinceMillis(lastEnemyDeathMillis) >= 2000) {
             enemy = randomEnemy();  // make a new enemy 2000ms after last one died
             enemy.setScale(0.8f);  // make it small and put it slightly near background
             enemy.setFlip(true, false);  // to face player
             enemy.setCenter(300, 400);
+        }
+
+        // Enemy attack if delay period passed
+        if(TimeUtils.timeSinceMillis(enemy.getLastAttackMillis()) > enemy.getAttackDelay() && !enemy.isDead()) {
+            Gdx.app.log("Game", "Enemy attacking");
+            enemy.attack(player);
+            enemy.setLastAttackMillis(TimeUtils.millis());
         }
 
         game.getBatch().setProjectionMatrix(game.getCamera().combined);
@@ -77,10 +90,13 @@ public class GameScreen implements Screen {
     private Enemy randomEnemy() {
         switch((int)(Math.random() * 3)) {
             case 0:
+                Gdx.app.log("Game", "Spawned Heavy");
                 return new EnemyHeavy();
             case 1:
+                Gdx.app.log("Game", "Spawned Mage");
                 return new EnemyMage();
             case 2:
+                Gdx.app.log("Game", "Spawned Rogue");
                 return new EnemyRogue();
         }
         return null;

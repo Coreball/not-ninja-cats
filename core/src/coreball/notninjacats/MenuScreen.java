@@ -39,7 +39,7 @@ public class MenuScreen implements Screen {
                 "\n\nclick 2 hurt baddie" +
                 "\nWell, in the Ninja Cat Clan, we specialize in the skills of" +
                 "\n[insert multiple skills relevant to each cat class]" +
-                "click anywhere to continue", 200, 600);
+                "\n\nclick anywhere to continue", 200, 600);
         game.getBatch().end();
     }
 

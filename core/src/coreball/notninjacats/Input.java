@@ -1,5 +1,6 @@
 package coreball.notninjacats;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector3;
@@ -42,6 +43,10 @@ public class Input implements InputProcessor {
         else if(game.getScreen() instanceof GameScreen) {
             GameScreen gameScreen = (GameScreen) game.getScreen();
             gameScreen.getPlayer().attack(gameScreen.getEnemy());  // have player attack enemy
+        }
+
+        else if(game.getScreen() instanceof EndScreen) {
+            game.setScreen(new GameScreen());  // play again
         }
 
         return false;

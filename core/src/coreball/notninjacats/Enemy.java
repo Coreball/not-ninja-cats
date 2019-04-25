@@ -1,5 +1,6 @@
 package coreball.notninjacats;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -13,6 +14,11 @@ public class Enemy extends Character {
         super(tex, name, health, damage);
         this.attackDelay = attackDelay;
         lastAttackMillis = TimeUtils.millis();
+    }
+
+    public void attack(Character victim) {
+        super.attack(victim);
+        Gdx.app.log("Game", "Enemy attack for: " + getDamage());
     }
 
     public long getLastAttackMillis() {
