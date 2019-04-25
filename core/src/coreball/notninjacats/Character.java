@@ -18,12 +18,19 @@ public abstract class Character extends Sprite {
         this.damage = damage;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
     public String getName() {
         return name;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void hurt(int oof) {
+        health -= oof;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }

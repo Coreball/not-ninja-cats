@@ -36,11 +36,12 @@ public class Input implements InputProcessor {
         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 
         if(game.getScreen() instanceof MenuScreen) {
-            game.setScreen(new GameScreen());
+            game.setScreen(new GameScreen());  // on click start game
         }
 
         else if(game.getScreen() instanceof GameScreen) {
-            // do thing
+            GameScreen gameScreen = (GameScreen) game.getScreen();
+            gameScreen.getPlayer().attackEnemy(gameScreen.getEnemy());  // have player attack enemy
         }
 
         return false;
