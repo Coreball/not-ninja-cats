@@ -12,8 +12,8 @@ public class Player extends Character {
         super(TEXTURE, "namehere", 100, 10);
     }
 
-    public void attackEnemy(Enemy enemy) {
-        enemy.hurt(getDamage());
+    public void attack(Character victim) {
+        victim.hurt((int)(getDamage() * (Math.random() + 0.5)));
     }
 
     public int getExp() {

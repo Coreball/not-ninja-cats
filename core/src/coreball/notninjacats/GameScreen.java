@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen implements Screen {
 
@@ -44,6 +45,20 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getCamera().update();
+
+        if(enemy.getHealth() <= 0 && !enemy.isDead()) {
+            enemy.die();
+            lastEnemyDeathMillis = TimeUtils.millis();
+        }
+        if(player.getHealth() <= 0) {
+            game.setScreen(new EndScreen());  // the end!
+        }
+        if(enemy.isDead() && TimeUtils.timeSinceMillis(lastEnemyDeathMillis) >= 2000) {
+            enemy = randomEnemy();  // make a new enemy 2000ms after last one died
+            enemy.setScale(0.8f);  // make it small and put it slightly near background
+            enemy.setFlip(true, false);  // to face player
+            enemy.setCenter(300, 400);
+        }
 
         game.getBatch().setProjectionMatrix(game.getCamera().combined);
         game.getBatch().begin();

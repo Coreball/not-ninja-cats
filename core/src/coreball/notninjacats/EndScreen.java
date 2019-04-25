@@ -6,19 +6,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class MenuScreen implements Screen {
+public class EndScreen implements Screen {
 
     private final NotNinjaCats game;
     private Sprite background;
 
-    public MenuScreen() {
-        Gdx.app.log("Game", "Creating MenuScreen");
+    public EndScreen() {
+        Gdx.app.log("Game", "Creating EndScreen");
         game = NotNinjaCats.getCurrentGame();
         game.getCamera().setToOrtho(false, 1200, 800);
 
         background = new Sprite(new Texture(Gdx.files.internal("writing.jpg")));
         background.setSize(1200, 800);
-        Gdx.app.log("Game", "Done creating MenuScreen");
+        Gdx.app.log("Game", "Done creating EndScreen");
     }
 
     @Override
@@ -35,11 +35,8 @@ public class MenuScreen implements Screen {
         game.getBatch().setProjectionMatrix(game.getCamera().combined);
         game.getBatch().begin();
         background.draw(game.getBatch());
-        game.getFont().draw(game.getBatch(), "absolutely not ninja cats" +
-                "\n\nclick 2 hurt baddie" +
-                "\nWell, in the Ninja Cat Clan, we specialize in the skills of" +
-                "\n[insert multiple skills relevant to each cat class]" +
-                "click anywhere to continue", 200, 600);
+        game.getFont().draw(game.getBatch(), "yOu DiEd" +
+                "\n\nclick anywhere to play aGaIn", 200, 600);
         game.getBatch().end();
     }
 

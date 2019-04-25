@@ -41,7 +41,7 @@ public class Input implements InputProcessor {
 
         else if(game.getScreen() instanceof GameScreen) {
             GameScreen gameScreen = (GameScreen) game.getScreen();
-            gameScreen.getPlayer().attackEnemy(gameScreen.getEnemy());  // have player attack enemy
+            gameScreen.getPlayer().attack(gameScreen.getEnemy());  // have player attack enemy
         }
 
         return false;

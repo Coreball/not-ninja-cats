@@ -18,6 +18,10 @@ public abstract class Character extends Sprite {
         this.damage = damage;
     }
 
+    public void attack(Character victim) {
+        victim.hurt(getDamage());
+    }
+
     public String getName() {
         return name;
     }
@@ -27,10 +31,15 @@ public abstract class Character extends Sprite {
     }
 
     public void hurt(int oof) {
-        health -= oof;
+        if(health - oof < 0) {
+            health = 0;  // Prevent negative health values
+        } else {
+            health -= oof;
+        }
     }
 
     public int getDamage() {
         return damage;
     }
+
 }

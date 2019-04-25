@@ -8,7 +8,7 @@ public class EnemyHeavy extends Enemy {
     public static final Texture TEXTURE = new Texture(Gdx.files.internal("Heavy.png"));
 
     public EnemyHeavy() {
-        super(TEXTURE, "big fat heavy", 200, 5, 5000);
+        super(TEXTURE, "big fat heavy", 150, 5, 5000);
     }
 
 }
