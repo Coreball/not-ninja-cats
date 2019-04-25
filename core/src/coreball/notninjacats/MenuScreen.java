@@ -36,6 +36,9 @@ public class MenuScreen implements Screen {
         game.getBatch().begin();
         background.draw(game.getBatch());
         game.getFont().draw(game.getBatch(), "absolutely not ninja cats\n" +
+                "click 2 hurt baddie\n" +
+                "Well, in the Ninja Cat Clan, we specialize in the skills of\n" +
+                "[insert multiple skills relevant to each cat class]\n" +
                 "click anywhere to continue", 200, 600);
         game.getBatch().end();
     }

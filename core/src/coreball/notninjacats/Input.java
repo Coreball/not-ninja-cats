@@ -10,7 +10,10 @@ public class Input implements InputProcessor {
     private Vector3 touchPos;
 
     public Input() {
+        Gdx.app.log("Game", "Creating Input");
         game = NotNinjaCats.getCurrentGame();
+        touchPos = new Vector3();
+        Gdx.app.log("Game", "Creating Input");
     }
 
     @Override
@@ -34,6 +37,10 @@ public class Input implements InputProcessor {
 
         if(game.getScreen() instanceof MenuScreen) {
             game.setScreen(new GameScreen());
+        }
+
+        else if(game.getScreen() instanceof GameScreen) {
+            // do thing
         }
 
         return false;
