@@ -45,6 +45,7 @@ public class Input implements InputProcessor {
             gameScreen.getPlayer().attack(gameScreen.getEnemy());  // have player attack enemy
             if(!gameScreen.getEnemy().isDead()) {
                 gameScreen.getEnemy().setScale(0.75f);  // depress if actually got hurt
+                gameScreen.playHit();
             }
         }
 

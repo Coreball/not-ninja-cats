@@ -2,6 +2,7 @@ package coreball.notninjacats;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,6 +16,10 @@ public class GameScreen implements Screen {
     private Player player;
     private Enemy enemy;
     private long lastEnemyDeathMillis;
+    private Sound hit;
+    private Sound oof;
+    private Sound appear;
+    private Sound die;
 
     public GameScreen() {
         Gdx.app.log("Game", "Creating GameScreen");
@@ -32,6 +37,10 @@ public class GameScreen implements Screen {
         enemy.setFlip(true, false);  // to face player
         enemy.setCenter(300, 400);
 
+        hit = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
+        oof = Gdx.audio.newSound(Gdx.files.internal("oof.mp3"));
+        appear = Gdx.audio.newSound(Gdx.files.internal("appear.mp3"));
+        die = Gdx.audio.newSound(Gdx.files.internal("die.mp3"));
         Gdx.app.log("Game", "Done creating GameScreen");
     }
 
@@ -52,6 +61,7 @@ public class GameScreen implements Screen {
             enemy.die();
             player.addExp(10);
             lastEnemyDeathMillis = TimeUtils.millis();
+            playDie();
         }
         if(player.getHealth() <= 0) {
             Gdx.app.log("Game", "Player died");
@@ -60,6 +70,7 @@ public class GameScreen implements Screen {
 
         // Check respawn
         if(enemy.isDead() && TimeUtils.timeSinceMillis(lastEnemyDeathMillis) >= 2000) {
+            playAppear();
             enemy = randomEnemy();  // make a new enemy 2000ms after last one died
             enemy.setScale(0.8f);  // make it small and put it slightly near background
             enemy.setFlip(true, false);  // to face player
@@ -69,6 +80,7 @@ public class GameScreen implements Screen {
         // Enemy attack if delay period passed
         if(TimeUtils.timeSinceMillis(enemy.getLastAttackMillis()) > enemy.getAttackDelay() && !enemy.isDead()) {
             Gdx.app.log("Game", "Enemy attacking");
+            playOof();
             enemy.attack(player);
             enemy.setLastAttackMillis(TimeUtils.millis());
             player.setScale(0.95f);
@@ -112,6 +124,22 @@ public class GameScreen implements Screen {
 
     public Enemy getEnemy() {
         return enemy;
+    }
+
+    public void playHit() {
+        hit.play();  // Play sound for player hit enemy
+    }
+
+    public void playOof() {
+        oof.play();  // Play sound for player was hurt
+    }
+
+    public void playAppear() {
+        appear.play();
+    }
+
+    public void playDie() {
+        die.play();
     }
 
     @Override
